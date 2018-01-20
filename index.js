@@ -17,6 +17,21 @@ server.use(restify.plugins.bodyParser());
 
 // Objects
 
+
+server.get('/objects', (req, res, next) => {
+  let object = new Object(req.body);
+
+  Object.find({}, (err, objects) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    } else res.send(objects);
+
+    return next();
+  });
+
+});
+
 server.post('/objects', (req, res, next) => {
   let object = new Object(req.body);
 
