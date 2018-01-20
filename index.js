@@ -7,7 +7,7 @@ const server = restify.createServer({
   version: '1.0.0'
 });
 
-server.listen(8080, function () {
+server.listen(process.env.PORT || 8000, function () {
   console.log('%s listening at %s', server.name, server.url);
 });
 
