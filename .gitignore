@@ -133,3 +133,11 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# package.json files
+package-lock.json
+
+
+# Webstorm
+
+.idea
+.idea/*
