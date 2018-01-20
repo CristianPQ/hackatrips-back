@@ -1,6 +1,6 @@
 const {Schema} = require('mongoose');
 const {ObjectId} = Schema;
-
+const User = require('./user');
 
 let Object = new Schema({
   id: ObjectId,
@@ -16,7 +16,7 @@ let Object = new Schema({
   balance: {type: Number, default: 0},
   available: {type: Boolean, default: false},
   history: [{
-    user_id: String,
+    user_id: { type: Schema.Types.ObjectId, ref: 'User' },
     username: String,
     image: String,
     story: String

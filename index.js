@@ -56,7 +56,9 @@ server.post('/objects', (req, res, next) => {
 server.get('/objects/:id', (req, res, next) => {
   let id = req.params.id;
 
-  Object.findById(id, (err, object) => {
+  Object.findById(id)
+    .populate('history.user_id')
+    .exec((err, object) => {
     if(err) {
       console.log(err);
       return next(err);
