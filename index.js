@@ -146,6 +146,21 @@ server.get('/users/:id', (req, res, next) => {
   });
 });
 
+server.get('users/:id/balance/:balance', (req, res, next) => {
+  let balance = req.params.balance;
+
+  User.findById(req.params.id)
+    .populate('history.object_id')
+    .exec((err, object) => {
+      if (err) {
+        return next(err);
+      }
+      object.balance = balance;
+      object.save();
+      return res.send({ message: 'ok' });
+    });
+});
+
 // add history element
 /*
   {
