@@ -28,7 +28,9 @@ server.use(restify.plugins.bodyParser());
 server.get('/objects', (req, res, next) => {
   let object = new Object(req.body);
 
-  Object.find({}, (err, objects) => {
+  Object.find({
+    'available': true,
+  }, (err, objects) => {
     if (err) {
       console.log(err);
       return next(err);
@@ -99,6 +101,21 @@ server.post('/objects/:id/history', (req, res, next) => {
       })
     }
   });
+});
+
+server.get('objects/:id/availability/:availability', (req, res, next) => {
+  let availability = req.params.availability;
+
+  Object.findById(req.params.id)
+    .populate('history.user_id')
+    .exec((err, object) => {
+      if (err) {
+        return next(err);
+      }
+      object.available = availability;
+      object.save();
+      return res.send({ message: 'ok' });
+    });
 });
 
 // Users
