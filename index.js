@@ -26,7 +26,6 @@ server.use(restify.plugins.bodyParser());
 
 
 server.get('/objects', (req, res, next) => {
-  let object = new Object(req.body);
 
   Object.find({}, (err, objects) => {
     if (err) {
